@@ -12,23 +12,26 @@
 
 ActiveRecord::Schema.define(version: 2020_07_06_213942) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "cards", force: :cascade do |t|
     t.string "suit"
     t.string "value"
-    t.integer "game_id", null: false
+    t.bigint "game_id", null: false
     t.string "locationable_type"
-    t.integer "locationable_id"
+    t.bigint "locationable_id"
     t.index ["game_id"], name: "index_cards_on_game_id"
     t.index ["locationable_type", "locationable_id"], name: "index_cards_on_locationable_type_and_locationable_id"
   end
 
   create_table "decks", force: :cascade do |t|
-    t.integer "game_id", null: false
+    t.bigint "game_id", null: false
     t.index ["game_id"], name: "index_decks_on_game_id"
   end
 
   create_table "discard_piles", force: :cascade do |t|
-    t.integer "game_id", null: false
+    t.bigint "game_id", null: false
     t.index ["game_id"], name: "index_discard_piles_on_game_id"
   end
 
@@ -40,7 +43,7 @@ ActiveRecord::Schema.define(version: 2020_07_06_213942) do
   end
 
   create_table "hands", force: :cascade do |t|
-    t.integer "player_id", null: false
+    t.bigint "player_id", null: false
     t.index ["player_id"], name: "index_hands_on_player_id"
   end
 
@@ -58,8 +61,8 @@ ActiveRecord::Schema.define(version: 2020_07_06_213942) do
   end
 
   create_table "sequences", force: :cascade do |t|
-    t.integer "player_id", null: false
-    t.integer "round_id", null: false
+    t.bigint "player_id", null: false
+    t.bigint "round_id", null: false
     t.boolean "met"
     t.index ["player_id"], name: "index_sequences_on_player_id"
     t.index ["round_id"], name: "index_sequences_on_round_id"
